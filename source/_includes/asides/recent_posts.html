@@ -1,0 +1,15 @@
+<section class="well">
+  <ul id="recent_posts" class="nav nav-list">
+    <li class="nav-header">Recent Posts</li>
+    {% for post in site.posts limit: site.recent_posts %}
+      <li class="post">
+        <a href="{{ root_url }}{{ post.url }}">{{ post.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+
+    <ul class="pager">
+      <li><a href="/archives">Blog Archives</a></li>
+      <li><a href="http://www.naturalgis.pt/blog/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+    </ul>

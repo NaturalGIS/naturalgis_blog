@@ -1,0 +1,52 @@
+---
+layout: post
+title: "A QGIS plugin to run (common) spatial queries with PostGIS"
+date: 2015-02-28 12:26:17 +0000
+comments: true
+categories: qgis postgis processing
+---
+<span style="text-align:justify">
+<p>QGIS <a title="QGIS Processing Toolbox" href="http://docs.qgis.org/2.6/en/docs/training_manual/processing/index.html" target="_blank"><strong>
+Processing toolbox</strong></a> is extremely flexible and it allows easily to implement QGIS tools (with a GUI) that
+are based on command line utilities (see  
+<a title="New QGIS geoprocessing tools" href="http://www.naturalgis.pt/blog/2015/02/27/new-geoprocessing-tools-in-the-qgis-processing-toolbox/">
+<strong>this</strong></a> and 
+<a title="Import vectors in PostGIS, the fast way" href="http://www.naturalgis.pt/blog/2015/02/27/a-new-qgis-tool-based-on-ogr2ogr-to-import-vectors-in-postgis/">
+<strong>this</strong></a>).</p>
+<p>When the underlying command line program is 
+<a title="ogr2ogr" href="http://www.gdal.org/ogr2ogr.html" target="_blank"><strong>ogr2ogr</strong></a> 
+(or any other <a title="GDAL/OGR" href="http://www.gdal.org/" target="_blank"><strong>GDAL/OGR</strong></a> utility) 
+possibilities become endeless. For example <strong>ogr2ogr</strong> can be used to convert formats or run arbitrary (Spatial) SQL queries.</p>
+<p>One possibility is to run Spatial SQL queries using input PostGIS layers and getting as output a PostGIS layer. The intersting
+bit is that the Spatial SQL query will be run <strong>by the server/machine</strong> (where the input layers are stored), 
+so possibly <strong>not</strong> by the destkop machine where you are running ogr2ogr.</p>
+<p>Usually to run a (Spatial) SQL query in PostGIS a user would open one of the many SQL shells available (PgAdmin, QGIS DB Manager,
+phppgadmin, psql, etc.) and run something like the following:</p>
+<br>
+<code>
+CREATE TABLE dissolved AS<br>
+SELECT attribute1,(ST_Dump(ST_Union(a.geom))).geom::geometry(Polygon,4326) as geom<br>
+FROM input_table a<br>
+GROUP BY attribute1;
+</code>
+<br>
+<br>
+<p>and that is ok for us geo-geeks, but what about average Jane/Joe?</p>
+<p>Isn't this much easier?</p>
+<figure style="text-align: center">
+<img src="http://www.naturalgis.pt/blog/images/dissolve.png" alt="Dissolve PostGIS polygons">
+<figcaption style="font-size:10px;"><strong><em>Dissolve PostGIS polygons</em></strong></figcaption>
+</figure>
+<br>
+<p>With <a title="A QGIS plugin to allow users do geoprocessing operations with PostGIS input layers"  
+href="https://github.com/NaturalGIS/postgis_geoprocessing" target="_blank">this plugin</a> for the QGIS Processing 
+toolbox (available in the official QGIS plugin repository) we aim to bring into QGIS a set of tools to allow basic PostGIS users
+to run common queries (Dissolve, Clip, Difference, etc.), using as input PostGIS layer and getting as output PostGIS layer(s).</p>
+<figure style="text-align: center">
+<img src="http://www.naturalgis.pt/blog/images/postgisprocessing.png" alt="PostGIS QGIS Processing tools">
+<figcaption style="font-size:10px;"><strong><em>PostGIS QGIS Processing tools</em></strong></figcaption>
+</figure>
+<p>Please note that the plugin is still in the early stages of development and that it will be greatly improved once
+the Processing toolbox will support features like multi-attribute selection, adding to (QGIS) map output layers other than shapefiles, and
+others.</p>
+</span>

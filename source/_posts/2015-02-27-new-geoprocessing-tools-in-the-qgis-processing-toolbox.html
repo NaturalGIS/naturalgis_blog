@@ -1,0 +1,48 @@
+---
+layout: post
+title: "New geoprocessing tools in the QGIS Processing toolbox"
+date: 2015-02-27 19:25:07 +0000
+comments: true
+categories: QGIS Processing PostGIS Vectors ogr2ogr
+---
+<span style="text-align:justify">
+<p><a title="QGIS" href="http://www.qgis.org/" target="_blank"><strong>QGIS</strong></a> 2.8 was not officially announced yet and, 
+as always happens in the QGIS project, new features are already being added to QGIS master, aka next future release, in this case 2.10.</p>
+<p>At <a title="NaturalGIS" href="http://www.naturalgis.pt/" target="_blank"><strong>NaturalGIS</strong></a> we do our share of effort, 
+especially regarding improvements for the QGIS "Processing" toolbox, and recently started 
+to <a title="NaturalGIS QGIS commit" href="https://github.com/qgis/QGIS/pull/1905" target="_blank"><strong>add</strong></a> 
+new geoprocessing tools for vectors. At the time we are writing the tools we added are:</p>
+<ul>
+<li>Buffer</li>
+<li>Single sided buffer (or offset lines)</li>
+<li>Clip by extent</li>
+<li>Clip by polygon</li>
+<li>Create points along lines</li>
+<li>Dissolve</li>
+</ul>
+<figure style="text-align: center">
+<img src="http://www.naturalgis.pt/blog/images/ogrnewtools.png" alt="ogr2ogr geoprocessing tools for QGIS Processing toolbox">
+<figcaption style="font-size:10px;"><strong><em>New QGIS geoprocessing tools</em></strong></figcaption>
+</figure>
+<p>Some are completely new, like the <strong>Single sided buffer (or offset lines)</strong>, <strong>Clip (vector) by extent</strong> 
+(a similar tool is already available in QGIS but only to clip rasters layers) and <strong>Create points along lines</strong>, 
+others are not (<strong>Buffer</strong>, <strong>Clip by polygon</strong> and <strong>Dissolve</strong>) as there are already 
+plenty of alternatives in QGIS. The point here is that this "new" tools are quite faster than the already existing QGIS counterparts, 
+or they offer new options.</p>
+<p>For example the "Dissolve" tool is on average several times faster (up to 7 times, in our simple tests) than the QGIS counterpart, 
+moreover the tool has the ability to compute some statistics on numerical attributes. See the image below:</p>
+<figure style="text-align: center">
+<img src="http://www.naturalgis.pt/blog/images/ogrdissolve.png" alt="ogr2ogr geoprocessing Dissolve tool">
+<figcaption style="font-size:10px;"><strong><em>Dissolve with stats</em></strong></figcaption>
+</figure>
+<p>Under the hood the work is done by that great software that is <a title="ogr2ogr" href="http://www.gdal.org/ogr2ogr.html" target="_blank">
+<strong>ogr2ogr</strong></a>. In this case is used to run <strong>spatial SQL queries</strong>, 
+using as engine <strong>SQLite/Spatialite</strong></p>
+<p>More of this ogr2ogr/sql based tools will be added in the next future, especially when a few missing features will be added
+to the QGIS Processing toolbox, meanwhile you can help us testing the above ones.</p>
+<p>Under MS Windows you can install the development version of QGIS using the 
+<a title="osgeo4w" href="http://trac.osgeo.org/osgeo4w/" target="_blank">
+<strong>OSGeo4W</strong></a> installer. Under 
+<a title="ubuntu" href="http://www.ubuntu.com/" target="_blank"><strong>Ubuntu GNU/Linux</strong></a> you can use the 
+<a title="QGIS nightly build" href="http://www2.qgis.org/en/site/forusers/alldownloads.html#ubuntu" target="_blank"><strong>nightly builds</strong></a> repository.</p>
+</span>
